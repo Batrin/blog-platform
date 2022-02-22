@@ -1,0 +1,79 @@
+.article {
+  display: flex;
+  width: 940px;
+  height: 140px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  justify-content: space-between;
+  padding: 16px 14px 24px 15px;
+  box-sizing: border-box;
+
+  &:not(:first-child) {
+    margin-top: 26px;
+  }
+
+  .article__left-info-block {
+    max-width: 80%;
+    .article__header {
+      display: flex;
+      align-items: flex-end;
+
+      h5 {
+        color: #1890FF;
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .article__rate {
+        margin-left: 5px;
+      }
+    }
+
+    .article__tag-list {
+      margin-top: 4px;
+      .article__tag {
+        border: 2px solid #000000;
+        border-radius: 2px;
+        box-sizing: border-box;
+        padding: 5px;
+        display: inline-block;
+        font-size: 12px;
+
+        &:not(:first-child) {
+          margin-left: 8px;
+          border-color: rgba(0, 0, 0, 0.5);
+          color: rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+
+    .article__desc {
+      margin-top: 5px;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.75);
+    }
+  }
+
+  .article__right-info-block {
+    display: flex;
+    align-items: flex-start;
+
+    .article__user-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      margin-right: 10px;
+
+      .article__username {
+        font-size: 18px;
+      }
+
+      .article__date {
+        color: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+}
