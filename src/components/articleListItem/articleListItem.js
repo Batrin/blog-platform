@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import classes from './articleListItem.module.scss';
 import DataTransform from '../../utils';
 import Avatar from '../avatar';
+import ArticleTag from '../articleTag';
 
 const dataTransform = new DataTransform();
 
@@ -17,11 +18,7 @@ function ArticleListItem({ article }) {
 
   const tagsItemList = tagList.map((tag, index) => {
     if (tag) {
-      return (
-        <div className={classes.article__tag} key={index}>
-          {tag}
-        </div>
-      );
+      return <ArticleTag tagName={tag} key={index} />;
     }
     return null;
   });

@@ -32,20 +32,6 @@
 
     .article__tag-list {
       margin-top: 4px;
-      .article__tag {
-        border: 2px solid #000000;
-        border-radius: 2px;
-        box-sizing: border-box;
-        padding: 5px;
-        display: inline-block;
-        font-size: 12px;
-
-        &:not(:first-child) {
-          margin-left: 8px;
-          border-color: rgba(0, 0, 0, 0.5);
-          color: rgba(0, 0, 0, 0.5);
-        }
-      }
     }
 
     .article__desc {

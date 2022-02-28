@@ -1,6 +1,7 @@
 const baseUrl = 'https://kata.academy:8021/api';
 const endPoint = {
   articles: '/articles',
+  singleArticle: (slug) => `/articles/${slug}`,
 };
 
 export default class BlogApi {
@@ -17,5 +18,11 @@ export default class BlogApi {
     const url = `${baseUrl}${endPoint.articles}?limit=5&offset=${offsetCount}`;
     const articles = await this.getResource(url);
     return articles;
+  };
+
+  getSingleArticle = async (slug) => {
+    const url = `${baseUrl}${endPoint.singleArticle(slug)}`;
+    const singleArticle = await this.getResource(url);
+    return singleArticle;
   };
 }

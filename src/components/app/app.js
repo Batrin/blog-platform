@@ -4,6 +4,7 @@ import classes from './app.module.scss';
 import AppHeader from '../appHeader';
 import BlogApi from '../../api';
 import ArticleListWrapper from '../articleListWrapper';
+import SingleArticlePage from '../singleArticlePage';
 
 const api = new BlogApi();
 
@@ -53,7 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={articlesListComponent} />
           <Route path="/articles" element={articlesListComponent} />
-          <Route path="/articles/:articleId" element={<div>test</div>} />
+          <Route path="/articles/:articleId" element={<SingleArticlePage />} />
         </Routes>
       </div>
     </div>
