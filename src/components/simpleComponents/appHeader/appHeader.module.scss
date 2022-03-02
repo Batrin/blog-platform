@@ -1,4 +1,5 @@
 $toxic-green-button: #52C41A;
+$light-black: rgba(0, 0, 0, 0.75);
 .header {
   background-color: #FFFFFF;
   height: 80px;
@@ -11,6 +12,23 @@ $toxic-green-button: #52C41A;
   position: fixed;
   top: 0;
   left: 0;
+
+  .header__panel {
+    display: flex;
+    align-items: center;
+    width: 20%;
+  }
+
+  .header__user-panel {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .header__user-info {
+    display: flex;
+  }
 
   h6 {
     font-size: 18px;
@@ -32,5 +50,20 @@ $toxic-green-button: #52C41A;
   button[name=signUp] {
     border-color: $toxic-green-button;
     color: $toxic-green-button;
+  }
+
+  button[name=createArticle] {
+    width: auto;
+    height: 32px;
+    font-size: 14px;
+    color: $toxic-green-button;
+    border-color: $toxic-green-button;
+  }
+
+  button[name=logout] {
+    width: auto;
+    height: 51px;
+    border-color: $light-black;
+    color: $light-black;
   }
 }

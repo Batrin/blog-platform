@@ -1,0 +1,37 @@
+$error-color: #F5222D;
+.label-wrapper {
+  font-size: 14px;
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+
+  .label-wrapper__input {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #D9D9D9;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 8px;
+    margin-top: 5px;
+
+    &:focus {
+      outline: none;
+      border: 2px solid #D9D9D9;
+    }
+
+  }
+
+  .label-wrapper__input-error {
+    border-color: $error-color;
+
+    &:focus {
+      border-color: $error-color;
+    }
+  }
+}
+
+.error__text {
+  margin-top: 5px;
+  color: $error-color;
+}

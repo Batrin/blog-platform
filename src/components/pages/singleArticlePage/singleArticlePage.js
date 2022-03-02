@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import BlogApi from '../../api';
-import SingleArticle from '../singleArticle';
+import BlogApi from '../../../api';
+import SingleArticle from '../../simpleComponents/singleArticle';
 import classes from './singleArticlePage.module.scss';
 
 const api = new BlogApi();

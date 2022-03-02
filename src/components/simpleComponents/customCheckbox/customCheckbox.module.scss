@@ -1,0 +1,38 @@
+$error-color: #F5222D;
+.check {
+  display: flex;
+  align-items: flex-start;
+  font-size: 14px;
+  padding-left: 1.4em;
+  .check__input {
+    appearance: none;
+    position: absolute;
+
+    &:checked + .check__box {
+      background-image: url("check.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #1890FF;
+    }
+   }
+
+  .check__box {
+    margin-left: -1.4em;
+    position: absolute;
+    height: 1em;
+    width: 1em;
+    background-color: white;
+    border: 1px solid #1890FF;
+    border-radius: 2px;
+  }
+}
+
+.check__error {
+  span {
+    color: $error-color;
+  }
+
+  .check__box {
+    border-color: $error-color;
+  }
+}

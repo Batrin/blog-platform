@@ -1,0 +1,36 @@
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 36px 0 36px;
+
+  .sign-in-form__fields {
+    margin-top: 21px;
+  }
+
+  button[name=login-button] {
+    width: 100%;
+    background-color: #1890FF;
+    border: none;
+    color: white;
+    font-weight: 300;
+    margin-top: 21px;
+  }
+
+  .sign-in-form__footer {
+    display: flex;
+    align-items: flex-end;
+    font-size: 12px;
+    justify-content: center;
+    width: 100%;
+    .sign-in-form__footer-text {
+      margin-top: 8px;
+      color: #8C8C8C;
+    }
+
+    span {
+      margin-left: 2px;
+      color: #1890FF;
+    }
+  }
+}

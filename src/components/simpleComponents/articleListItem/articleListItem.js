@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classes from './articleListItem.module.scss';
-import DataTransform from '../../utils';
+import DataTransform from '../../../utils';
 import Avatar from '../avatar';
 import ArticleTag from '../articleTag';
 

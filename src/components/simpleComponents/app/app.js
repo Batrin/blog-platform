@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import classes from './app.module.scss';
 import AppHeader from '../appHeader';
-import BlogApi from '../../api';
+import BlogApi from '../../../api';
 import ArticleListWrapper from '../articleListWrapper';
-import SingleArticlePage from '../singleArticlePage';
+import SingleArticlePage from '../../pages/singleArticlePage';
+import SignInPage from '../../pages/signInPage';
+import SignUpPage from '../../pages/signUpPage';
+import ProfilePage from '../../pages/profilePage';
 
 const api = new BlogApi();
 
@@ -13,6 +16,7 @@ function App() {
   const [articlesCount, setArticlesCount] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
   const pageCount = Math.floor(articlesCount / 5);
 
@@ -47,14 +51,35 @@ function App() {
     />
   );
 
+  const signInSubmit = (data) => {
+    const userInfo = {
+      user: {
+        ...data,
+      },
+    };
+    api.signInUser(userInfo).then((res) => {
+      const { username } = res.user;
+      setUser({ username });
+      localStorage.setItem('user', JSON.stringify(res.user));
+    });
+  };
+
+  const logOut = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+  };
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.content}>
-        <AppHeader />
+        <AppHeader user={user} logOut={logOut} />
         <Routes>
           <Route path="/" element={articlesListComponent} />
           <Route path="/articles" element={articlesListComponent} />
           <Route path="/articles/:articleId" element={<SingleArticlePage />} />
+          <Route path="/sign-in" element={<SignInPage formSubmit={signInSubmit} />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </div>
     </div>
