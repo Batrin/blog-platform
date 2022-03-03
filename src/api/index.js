@@ -27,11 +27,13 @@ export default class BlogApi {
       body: JSON.stringify(body),
     });
 
-    if (response.ok) {
-      const json = await response.json();
-      return json;
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw json;
     }
-    return response.status;
+
+    return json;
   };
 
   getArticles = async (offsetCount = 0) => {

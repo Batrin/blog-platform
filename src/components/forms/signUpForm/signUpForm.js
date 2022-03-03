@@ -2,25 +2,45 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Alert from '@mui/material/Alert';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import classes from './signUpForm.module.scss';
 import InputTextField from '../../simpleComponents/inputTextField';
 import CustomCheckbox from '../../simpleComponents/customCheckbox/customCheckbox';
 import TemplateButton from '../../simpleComponents/templateButton';
-import signUpRule from '../../../validationRule/signUpRule';
 import BlogApi from '../../../api';
 
 const api = new BlogApi();
 
 function SignUpForm() {
-  const { userName, email, password, repeatPassword, checkbox } = signUpRule;
+  const formSchema = Yup.object().shape({
+    username: Yup.string()
+      .required('Required field')
+      .min(3, 'Min length 3 characters')
+      .max(20, 'Max length 20 characters'),
+    email: Yup.string()
+      .required('Required field')
+      .matches(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i, 'Uncorrectly email'),
+    password: Yup.string()
+      .required('Required field')
+      .min(6, 'Min length 3 characters')
+      .max(40, 'Max length 40 characters'),
+    repeatPassword: Yup.string()
+      .required('Required field')
+      .oneOf([Yup.ref('password')], 'Passwords must and should match'),
+    checkbox: Yup.boolean().oneOf([true], ''),
+  });
+
+  const validationOpt = { resolver: yupResolver(formSchema) };
+
   const [isRegistered, setRegistered] = useState(false);
   const {
     register,
-    formState: { errors },
     handleSubmit,
-    getValues,
     reset,
-  } = useForm();
+    setError,
+    formState: { errors },
+  } = useForm(validationOpt);
 
   const onSubmit = (data) => {
     const userInfo = {
@@ -30,10 +50,21 @@ function SignUpForm() {
         email: data.email,
       },
     };
-    return api.signUpUser(userInfo).then(() => {
-      reset();
-      setRegistered(true);
-    });
+    return api
+      .signUpUser(userInfo)
+      .then(() => {
+        reset();
+        setRegistered(true);
+      })
+      .catch((err) => {
+        const errObj = err.errors;
+        for (const errKey in errObj) {
+          setError(errKey, {
+            type: 'server-error',
+            message: errObj[errKey],
+          });
+        }
+      });
   };
 
   const successMessage = isRegistered ? <Alert severity="success">Registration success</Alert> : null;
@@ -43,7 +74,7 @@ function SignUpForm() {
       <div className={classes['sign-up-form__fields']}>
         <InputTextField
           register={{
-            ...register('username', { ...userName }),
+            ...register('username'),
           }}
           type="text"
           labelText="Username"
@@ -52,7 +83,7 @@ function SignUpForm() {
         />
         <InputTextField
           register={{
-            ...register('email', { ...email }),
+            ...register('email'),
           }}
           type="text"
           labelText="Email address"
@@ -61,7 +92,7 @@ function SignUpForm() {
         />
         <InputTextField
           register={{
-            ...register('password', { ...password }),
+            ...register('password'),
           }}
           type="password"
           labelText="Password"
@@ -70,7 +101,7 @@ function SignUpForm() {
         />
         <InputTextField
           register={{
-            ...register('repeatPassword', { ...repeatPassword(getValues('password')) }),
+            ...register('repeatPassword'),
           }}
           type="password"
           labelText="Repeat Password"
@@ -83,7 +114,7 @@ function SignUpForm() {
           labelText="I agree to the processing of my personal
           information"
           register={{
-            ...register('checkbox', { ...checkbox }),
+            ...register('checkbox'),
           }}
           errors={errors.checkbox}
         />

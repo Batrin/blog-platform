@@ -57,11 +57,14 @@ function App() {
         ...data,
       },
     };
-    api.signInUser(userInfo).then((res) => {
-      const { username } = res.user;
-      setUser({ username });
-      localStorage.setItem('user', JSON.stringify(res.user));
-    });
+    api
+      .signInUser(userInfo)
+      .then((res) => {
+        const { username } = res.user;
+        setUser({ username });
+        localStorage.setItem('user', JSON.stringify(res.user));
+      })
+      .catch((err) => err);
   };
 
   const logOut = () => {
