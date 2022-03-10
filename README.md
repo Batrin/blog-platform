@@ -1,1 +1,1 @@
-# blog-platform
+https://blog-platform-batrin.vercel.app/articles
