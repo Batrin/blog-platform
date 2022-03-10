@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classes from './appHeader.module.scss';
 import TemplateButton from '../templateButton';
+import Avatar from '../avatar';
 
 function AppHeader({ user, logOut }) {
   const noUserButtons = (
@@ -18,10 +19,15 @@ function AppHeader({ user, logOut }) {
 
   const userPanel = (
     <div className={classes['header__user-panel']}>
-      <TemplateButton type="button" label="Create article" name="createArticle" />
+      <Link to="/new-article">
+        <TemplateButton type="button" label="Create article" name="createArticle" />
+      </Link>
       <div className={classes['header__user-info']}>
         <Link to="/profile">
-          <p>{user ? user.username : null}</p>
+          <div className={classes['header__user-button']}>
+            <p>{user ? user.username : null}</p>
+            <Avatar avatarUrl={user ? user.image : null} />
+          </div>
         </Link>
       </div>
       <Link to="/articles">

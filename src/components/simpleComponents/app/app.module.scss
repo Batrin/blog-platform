@@ -8,6 +8,8 @@
   text-decoration: none;
 }
 
+
+
 .wrapper {
   margin: 0;
   padding: 80px 0 17px 0;
@@ -16,6 +18,10 @@
   height: 100%;
   background-color: #EBEEF3;
   box-sizing: border-box;
+
+  p {
+    margin: 0;
+  }
 
   .content {
     max-width: 1024px;

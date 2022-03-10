@@ -8,6 +8,7 @@
   justify-content: space-between;
   padding: 16px 14px 24px 15px;
   box-sizing: border-box;
+  position: relative;
 
   &:not(:first-child) {
     margin-top: 26px;
@@ -17,7 +18,7 @@
     max-width: 80%;
     .article__header {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
 
       h5 {
         color: #1890FF;
@@ -26,12 +27,45 @@
       }
 
       .article__rate {
-        margin-left: 5px;
+        display: flex;
+        justify-content: center;
+        margin-left: 15px;
+        font-size: 12px;
+        margin-bottom: 10px;
+
+        p {
+          margin-left: 3px;
+        }
       }
     }
 
     .article__tag-list {
       margin-top: 4px;
+    }
+
+    .article-desc-panel {
+
+      .article__button-panel {
+        display: flex;
+        right: 13px;
+        top: 70px;
+
+        button {
+          height: 31px;
+          font-size: 14px;
+        }
+
+        button[name=delete-article] {
+          border-color: #F5222D;
+          color: #F5222D;
+          margin-right: 10px;
+        }
+
+        button[name=edit-article] {
+          color: #52C41A;
+          border-color: #52C41A;
+        }
+      }
     }
 
     .article__desc {
@@ -45,20 +79,24 @@
   .article__right-info-block {
     display: flex;
     align-items: flex-start;
+    flex-direction: column;
 
-    .article__user-info {
+    .article__info {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-end;
-      margin-right: 10px;
+      .article__user-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        margin-right: 10px;
 
-      .article__username {
-        font-size: 18px;
-      }
+        .article__username {
+          font-size: 18px;
+        }
 
-      .article__date {
-        color: rgba(0, 0, 0, 0.5);
+        .article__date {
+          color: rgba(0, 0, 0, 0.5);
+        }
       }
     }
   }

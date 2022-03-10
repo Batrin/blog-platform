@@ -1,0 +1,34 @@
+$error-color : #F5222D;
+$good-color: #52C41A;
+.panel-control {
+  position: relative;
+  margin-top: 20px;
+
+  button {
+    background: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 14px;
+    min-width: 80px;
+    box-sizing: border-box;
+    border: none;
+    border: 1px solid black;
+
+    &:active {
+      outline: none;
+    }
+  }
+
+  button[name=delete-article] {
+    border-color: $error-color;
+    color: $error-color;
+    margin-right: 10px;
+  }
+
+  button[name=edit-article] {
+    border-color: $good-color;
+    color: $good-color;
+  }
+}

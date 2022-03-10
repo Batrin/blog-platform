@@ -5,6 +5,8 @@ const endPoint = {
   signUp: '/users',
   signIn: '/users/login',
   getProfile: (username) => `/profiles/${username}`,
+  updateUser: '/user',
+  favoriteArticle: (articleSlug) => `/articles/${articleSlug}/favorite`,
 };
 
 export default class BlogApi {
@@ -17,12 +19,13 @@ export default class BlogApi {
     return response.status;
   };
 
-  postRequest = async (url, body) => {
+  postRequest = async (method, url, body, token) => {
     const response = await fetch(url, {
-      method: 'POST',
+      method,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });
@@ -50,19 +53,63 @@ export default class BlogApi {
 
   signUpUser = async (userInfo) => {
     const url = `${baseUrl}${endPoint.signUp}`;
-    const user = await this.postRequest(url, userInfo);
+    const user = await this.postRequest('post', url, userInfo);
     return user;
   };
 
   signInUser = async (userInfo) => {
     const url = `${baseUrl}${endPoint.signIn}`;
-    const res = await this.postRequest(url, userInfo);
+    const res = await this.postRequest('post', url, userInfo);
     return res;
   };
 
-  getUserProfile = async (userName) => {
-    const url = `${baseUrl}${endPoint.getProfile(userName)}`;
-    const res = await this.getResource(url);
+  updateUserProfile = async (userinfo, token) => {
+    const url = `${baseUrl}${endPoint.updateUser}`;
+    const res = await this.postRequest('put', url, userinfo, token);
     return res;
+  };
+
+  favoriteArticle = async (slug, token) => {
+    const url = `${baseUrl}${endPoint.favoriteArticle(slug)}`;
+    const res = await this.postRequest('post', url, {}, token);
+    return res;
+  };
+
+  unfavoriteArticle = async (slug, token) => {
+    const url = `${baseUrl}${endPoint.favoriteArticle(slug)}`;
+    const res = await this.postRequest('delete', url, {}, token);
+    return res;
+  };
+
+  addNewArticle = async (articleBody, token) => {
+    const url = `${baseUrl}${endPoint.articles}`;
+    const res = await this.postRequest('post', url, articleBody, token);
+    return res;
+  };
+
+  updateArticle = async (slug, articleBody, token) => {
+    const url = `${baseUrl}${endPoint.singleArticle(slug)}`;
+    const res = await this.postRequest('put', url, articleBody, token);
+    return res;
+  };
+
+  deleteArticle = async (slug, token) => {
+    const url = `${baseUrl}${endPoint.singleArticle(slug)}`;
+    const response = await fetch(url, {
+      method: 'delete',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ data: 'data' }),
+    });
+
+    if (!response.ok) {
+      throw response;
+    }
+
+    return response;
   };
 }

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { CircularProgress } from '@mui/material';
 import BlogApi from '../../../api';
 import SingleArticle from '../../simpleComponents/singleArticle';
 import classes from './singleArticlePage.module.scss';
 
 const api = new BlogApi();
 
-function SingleArticlePage() {
+function SingleArticlePage({ user }) {
   const { articleId } = useParams();
   const [singleArticle, setSingleArticle] = useState();
   const [isLoading, setLoading] = useState();
@@ -19,8 +21,8 @@ function SingleArticlePage() {
     });
   }, [articleId]);
 
-  const loading = isLoading ? <div>loading....</div> : null;
-  const article = !isLoading && singleArticle ? <SingleArticle singleArticle={singleArticle} /> : null;
+  const loading = isLoading ? <CircularProgress /> : null;
+  const article = !isLoading && singleArticle ? <SingleArticle user={user} singleArticle={singleArticle} /> : null;
   return (
     <div className={classes.article__wrapper}>
       {loading}
@@ -28,5 +30,9 @@ function SingleArticlePage() {
     </div>
   );
 }
+
+SingleArticlePage.propTypes = {
+  user: PropTypes.instanceOf(Object),
+};
 
 export default SingleArticlePage;
