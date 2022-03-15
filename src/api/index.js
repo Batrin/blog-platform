@@ -82,6 +82,7 @@ export default class BlogApi {
   };
 
   addNewArticle = async (articleBody, token) => {
+    console.log(token);
     const url = `${baseUrl}${endPoint.articles}`;
     const res = await this.postRequest('post', url, articleBody, token);
     return res;

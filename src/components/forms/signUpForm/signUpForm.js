@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import Alert from '@mui/material/Alert';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 import classes from './signUpForm.module.scss';
 import InputTextField from '../../simpleComponents/inputTextField';
 import CustomCheckbox from '../../simpleComponents/customCheckbox/customCheckbox';
@@ -12,7 +13,7 @@ import BlogApi from '../../../api';
 
 const api = new BlogApi();
 
-function SignUpForm() {
+function SignUpForm({ setUser }) {
   const formSchema = Yup.object().shape({
     username: Yup.string()
       .required('Required field')
@@ -52,9 +53,10 @@ function SignUpForm() {
     };
     return api
       .signUpUser(userInfo)
-      .then(() => {
+      .then((res) => {
         reset();
         setRegistered(true);
+        setUser(res);
       })
       .catch((err) => {
         const errObj = err.errors;
@@ -130,5 +132,9 @@ function SignUpForm() {
     </form>
   );
 }
+
+SignUpForm.propTypes = {
+  setUser: PropTypes.func,
+};
 
 export default SignUpForm;

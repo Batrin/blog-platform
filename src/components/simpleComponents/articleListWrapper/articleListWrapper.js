@@ -12,7 +12,11 @@ function ArticleListWrapper({ user }) {
   const [isLoading, setLoading] = useState(false);
   const [articlesCount, setArticlesCount] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const pageCount = Math.floor(articlesCount / 5);
+  let pageCount = Math.floor(articlesCount / 5);
+
+  if (articlesCount === 0) {
+    pageCount = 1;
+  }
 
   useEffect(() => {
     setLoading(true);

@@ -27,12 +27,7 @@ function EditProfileForm({ user, updateUser }) {
     },
   });
 
-  const onSubmit = (data) => {
-    const userInfo = {
-      user: {
-        ...data,
-      },
-    };
+  const updateUserInfo = (userInfo) => {
     api
       .updateUserProfile(userInfo, user.token)
       .then((res) => {
@@ -48,6 +43,28 @@ function EditProfileForm({ user, updateUser }) {
           });
         }
       });
+  };
+
+  const onSubmit = (data) => {
+    const { image } = data;
+    console.log(image.length);
+    const img = new Image();
+    img.src = image;
+    img.onerror = () => {
+      setError('image', {
+        type: 'image url error',
+        message: 'There is no image in this url',
+      });
+      setSuccess(false);
+    };
+    img.onload = () => {
+      const userInfo = {
+        user: {
+          ...data,
+        },
+      };
+      updateUserInfo(userInfo);
+    };
   };
 
   return (

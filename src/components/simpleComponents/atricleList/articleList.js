@@ -18,6 +18,7 @@ function ArticleList({ user, articleList, page, pageCount, onPaginationChange })
         onChange={onPaginationChange}
         shape="rounded"
         color="primary"
+        defaultPage={1}
       />
     </div>
   );

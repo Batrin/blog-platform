@@ -1,3 +1,4 @@
+const urlReg = /https?:\/\/\S+(?:jpg|jpeg|png)/;
 const editProfileRule = {
   username: {
     required: 'Required field',
@@ -10,7 +11,6 @@ const editProfileRule = {
     },
   },
   password: {
-    required: 'Required field',
     minLength: {
       value: 6,
       message: 'Min length 3 characters',
@@ -22,7 +22,7 @@ const editProfileRule = {
   },
   url: {
     pattern: {
-      value: /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/,
+      value: urlReg,
       message: 'Uncorrect url',
     },
   },

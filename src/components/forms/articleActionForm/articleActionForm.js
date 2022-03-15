@@ -16,6 +16,7 @@ function ArticleActionForm({ articleInfo, user, isEditing }) {
   const buttonText = isEditing ? 'Save' : 'Send';
   const { slug } = useParams();
   const navigate = useNavigate();
+  const currentUser = JSON.parse(localStorage.getItem('user')).username;
 
   const {
     register,
@@ -25,9 +26,19 @@ function ArticleActionForm({ articleInfo, user, isEditing }) {
     getValues,
     setValue,
     reset,
+    resetField,
   } = useForm({
     defaultValues: {},
   });
+
+  useEffect(() => {
+    if (articleInfo && isEditing) {
+      const username = articleInfo.author && articleInfo.author.username;
+      if (username && username !== user.username) {
+        navigate('/');
+      }
+    }
+  }, [user, articleInfo, currentUser, isEditing, navigate]);
 
   useEffect(() => {
     if (articleInfo && isEditing) {
@@ -45,7 +56,7 @@ function ArticleActionForm({ articleInfo, user, isEditing }) {
     } else {
       reset();
     }
-  }, [articleInfo, isEditing, reset, setValue]);
+  }, [articleInfo, isEditing, navigate, reset, setValue]);
 
   const { fields, remove, prepend } = useFieldArray({
     control,
@@ -87,6 +98,7 @@ function ArticleActionForm({ articleInfo, user, isEditing }) {
 
   const addNewTag = () => {
     const newTagText = getValues('new-tag-input');
+    resetField('new-tag-input');
     prepend({ inputValue: newTagText });
   };
 

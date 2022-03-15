@@ -24,7 +24,7 @@ function ArticleActionPage({ user, isEditing }) {
         setArticleInfo(res.article);
       });
     }
-  }, [isEditing, slug]);
+  }, [isEditing, navigate, slug]);
 
   return (
     <div className={classes['article-action__wrapper']}>
